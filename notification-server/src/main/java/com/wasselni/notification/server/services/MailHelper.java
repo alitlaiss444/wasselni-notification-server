@@ -8,7 +8,6 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -90,8 +89,8 @@ public class MailHelper {
 
 			helper.setText(text, html);
 
-			ClassPathResource logo = new ClassPathResource("logo.jpg");
-			helper.addInline("bank-logo", logo);
+//			ClassPathResource logo = new ClassPathResource("logo.jpg");
+//			helper.addInline("bank-logo", logo);
 
 			if (attachements != null && !attachements.isEmpty()) {
 				for (File attachement : attachements) {

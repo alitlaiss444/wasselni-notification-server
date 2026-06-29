@@ -111,8 +111,17 @@ public class NotificationService {
 //					}
 
 				} else if (item.isNotifyWhatsapp()) {
-					whatsappSenderService.sendOtp(item.getCallingCode() + item.getMobileNumber(), item.getText());
-					notificationDao.updateNotificationWhatsapp(item.getNotificationId(), true, null);
+
+					try {
+						String to = item.getCallingCode() + item.getMobileNumber();
+
+						whatsappSenderService.sendOtp(to, item.getText());
+
+						notificationDao.updateNotificationWhatsapp(item.getNotificationId(), true, null);
+
+					} catch (Exception e) {
+						notificationDao.updateNotificationWhatsapp(item.getNotificationId(), false, e.getMessage());
+					}
 				}
 
 			}

@@ -19,6 +19,10 @@ public class WhatsappSenderService {
 
 	private @Autowired RestClient restClient;
 
+	public String sendOtp(String to, String otp) {
+		return sendTemplateMessage(to, "wasselni_auth", "en", List.of(otp));
+	}
+
 	public String sendTemplateMessage(String to, String templateName, String languageCode, List<String> parameters) {
 
 		List<Map<String, Object>> bodyParams = parameters.stream()
@@ -31,10 +35,7 @@ public class WhatsappSenderService {
 		return restClient.post().uri("/{version}/{phoneNumberId}/messages", apiVersion, phoneNumberId)
 				.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken).contentType(MediaType.APPLICATION_JSON)
 				.body(requestBody).retrieve().body(String.class);
+
 	}
 
-	public String sendOtp(String to, String otp) {
-		return sendTemplateMessage(to, "jaspers_market_order_confirmation_v1", "en_US",
-				List.of("Ali Tleiss and welcome to Wasselni Services", otp, "Jun 26, 2026"));
-	}
 }
