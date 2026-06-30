@@ -112,16 +112,10 @@ public class NotificationService {
 
 				} else if (item.isNotifyWhatsapp()) {
 
-					try {
-						String to = item.getCallingCode() + item.getMobileNumber();
+					String to = item.getCallingCode() + item.getMobileNumber();
 
-						whatsappSenderService.sendOtp(to, item.getText());
+					whatsappSenderService.sendOtp(item.getNotificationId(), to, item.getText());
 
-						notificationDao.updateNotificationWhatsapp(item.getNotificationId(), true, null);
-
-					} catch (Exception e) {
-						notificationDao.updateNotificationWhatsapp(item.getNotificationId(), false, e.getMessage());
-					}
 				}
 
 			}
